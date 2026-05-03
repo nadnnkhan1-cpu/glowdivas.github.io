@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Diva's Beauty Salon & Academy — Premium beauty services and professional makeup & hair academy.">
+  <title>Diva's Beauty Salon & Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ===========================
+       CSS VARIABLES & RESET
+    =========================== */
+    :root {
+      --rose:      #c8697a;
+      --rose-deep: #a04d5e;
+      --rose-pale: #f7e8eb;
+      --gold:      #c9a46a;
+      --gold-pale: rgba(201,164,106,0.15);
+      --cream:     #fdf8f5;
+      --cream-alt: #f5ede8;
+      --dark:      #1c1018;
+      --dark-mid:  #3a2530;
+      --text:      #3d2535;
+      --muted:     #9a7a85;
+      --white:     #ffffff;
+      --border:    rgba(200,105,122,0.18);
+
+      --ff-display: 'Playfair Display', Georgia, serif;
+      --ff-body:    'Jost', sans-serif;
+      --transition: 0.4s cubic-bezier(.25,.46,.45,.94);
+      --max-w:      1240px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--ff-body);
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ===========================
+       SHARED HELPERS
+    =========================== */
+    .label {
+      display: inline-block;
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 14px;
+    }
+
+    .h-display {
+      font-family: var(--ff-display);
+      font-weight: 400;
+      line-height: 1.12;
+    }
+
+    .h-display em { font-style: italic; color: var(--rose); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 32px;
+      font-family: var(--ff-body);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      outline: none;
+    }
+
+    .btn-rose {
+      background: var(--rose);
+      color: #fff;
+    }
+    .btn-rose:hover { background: var(--rose-deep); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(160,77,94,.3); }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--rose);
+      color: var(--rose);
+    }
+    .btn-outline:hover { background: var(--rose); color: #fff; }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,.5);
+      color: #fff;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.15); border-color: #fff; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ===========================
+       PETAL DECO
+    =========================== */
+    .petal-deco {
+      position: absolute;
+      pointer-events: none;
+      border-radius: 50% 10% 50% 10%;
+      opacity: .12;
+    }
+
+    /* ===========================
+       HEADER / NAV
+    =========================== */
+    #header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 900;
+      padding: 0 48px;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      background: transparent;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+
+    #header.scrolled {
+      background: rgba(253,248,245,.97);
+      box-shadow: 0 1px 0 var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .site-logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .logo-main {
+      font-family: var(--ff-display);
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: .04em;
+    }
+    .logo-main span { color: var(--rose); }
+    .logo-sub {
+      font-size: .58rem;
+      font-weight: 500;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .main-nav ul {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+    }
+    .main-nav ul li a {
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--dark-mid);
+      opacity: .75;
+      transition: opacity .2s, color .2s;
+      position: relative;
+    }
+    .main-nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1.5px;
+      background: var(--rose);
+      transition: width var(--transition);
+    }
+    .main-nav ul li a:hover { opacity: 1; color: var(--rose); }
+    .main-nav ul li a:hover::after { width: 100%; }
+    .main-nav ul li a.btn-nav {
+      background: var(--rose);
+      color: #fff;
+      padding: 9px 22px;
+      opacity: 1;
+      letter-spacing: .15em;
+    }
+    .main-nav ul li a.btn-nav::after { display: none; }
+    .main-nav ul li a.btn-nav:hover { background: var(--rose-deep); }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--dark);
+      transition: var(--transition);
+    }
+    .nav-toggle.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle.active span:nth-child(2) { opacity: 0; }
+    .nav-toggle.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ===========================
+       HERO
+    =========================== */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1c1018 0%, #3a2530 100%);
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 140px 64px 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-tag {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .hero-tag-line { width: 40px; height: 1px; background: var(--gold); }
+    .hero-tag span {
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .hero-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2.8rem, 5vw, 4.6rem);
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: .92rem;
+      font-weight: 300;
+      color: rgba(255,255,255,.65);
+      max-width: 400px;
+      margin-bottom: 44px;
+      line-height: 1.8;
+    }
+
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .hero-badges {
+      display: flex;
+      gap: 36px;
+      margin-top: 56px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .hero-badge-num {
+      font-family: var(--ff-display);
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--gold);
+      display: block;
+      line-height: 1;
+    }
+    .hero-badge-label {
+      font-size: .65rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+      margin-top: 4px;
+      display: block;
+    }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      filter: brightness(.82) saturate(1.1);
+      transition: transform 8s ease;
+    }
+    .hero-right:hover img { transform: scale(1.04); }
+
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, #1c1018 0%, transparent 35%);
+      z-index: 1;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 64px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 10;
+    }
+    .hero-scroll span { font-size: .6rem; letter-spacing: .25em; text-transform: uppercase; color: rgba(255,255,255,.4); }
+    .scroll-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--rose);
+      animation: dotPulse 2s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(.5); opacity: .4; }
+    }
+
+    /* ===========================
+       MARQUEE STRIP
+    =========================== */
+    .marquee-strip {
+      background: var(--rose);
+      padding: 14px 0;
+      overflow: hidden;
+      display: flex;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 48px;
+      animation: marquee 20s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-track span {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.9);
+    }
+    .marquee-dot { color: rgba(255,255,255,.4); }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ===========================
+       ABOUT
+    =========================== */
+    .section-about {
+      padding: 110px 48px;
+      background: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-grid {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-imgs {
+      position: relative;
+      height: 540px;
+    }
+
+    .about-img-main {
+      position: absolute;
+      right: 0; top: 0;
+      width: 75%;
+      height: 88%;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+
+    .about-img-accent {
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 52%;
+      height: 60%;
+      object-fit: cover;
+      border: 6px solid var(--cream);
+      border-radius: 2px;
+      box-shadow: 0 20px 50px rgba(28,16,24,.18);
+    }
+
+    .about-badge {
+      position: absolute;
+      right: -16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 96px;
+      height: 96px;
+      background: var(--rose);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      box-shadow: 0 8px 28px rgba(200,105,122,.4);
+      z-index: 5;
+    }
+    .about-badge strong { font-family: var(--ff-display); font-size: 1.5rem; font-weight: 700; line-height: 1; }
+    .about-badge span { font-size: .54rem; letter-spacing: .1em; text-align: center; opacity: .9; }
+
+    .about-text .h-display { font-size: clamp(2rem, 3vw, 3rem); margin-bottom: 22px; }
+    .about-text p { font-size: .9rem; color: var(--muted); line-height: 1.85; margin-bottom: 18px; }
+
+    .about-list {
+      margin: 28px 0 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .about-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: .85rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .about-list li::before {
+      content: '';
+      width: 20px; height: 1.5px;
+      background: var(--rose);
+      flex-shrink: 0;
+    }
+
+    /* ===========================
+       SERVICES
+    =========================== */
+    .section-services {
+      padding: 110px 48px;
+      background: var(--cream-alt);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .services-head {
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto 64px;
+    }
+    .services-head .h-display { font-size: clamp(2rem, 3vw, 3rem); margin-bottom: 14px; }
+    .services-head p { font-size: .88rem; color: var(--muted); line-height: 1.8; }
+
+    .services-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .tab-btn {
+      padding: 9px 22px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      font-family: var(--ff-body);
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .tab-btn:hover, .tab-btn.active {
+      background: var(--rose);
+      border-color: var(--rose);
+      color: #fff;
+    }
+
+    .services-grid {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 0;
+      overflow: hidden;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .service-card:hover {
+      box-shadow: 0 20px 60px rgba(200,105,122,.15);
+      transform: translateY(-4px);
+    }
+
+    .service-card-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      transition: transform .6s ease;
+      filter: brightness(.9) saturate(.95);
+    }
+    .service-card:hover .service-card-img { transform: scale(1.05); filter: brightness(1) saturate(1); }
+
+    .service-card-body {
+      padding: 28px 26px;
+    }
+
+    .service-card-icon {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .service-card-title {
+      font-family: var(--ff-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+
+    .service-card-desc {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    .service-card-link {
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--rose);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: gap .2s;
+    }
+    .service-card-link:hover { gap: 14px; }
+    .service-card-link::after { content: '→'; }
+
+    /* hidden service panels */
+    .service-panel { display: none; }
+    .service-panel.active { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+
+    /* ===========================
+       BRIDAL SHOWCASE
+    =========================== */
+    .section-bridal {
+      position: relative;
+      overflow: hidden;
+      min-height: 600px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .bridal-img-col {
+      position: relative;
+      overflow: hidden;
+    }
+    .bridal-img-col img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: transform 8s ease;
+    }
+    .bridal-img-col:hover img { transform: scale(1.04); }
+
+    .bridal-content {
+      background: linear-gradient(135deg, #1c1018, #3a2530);
+      padding: 80px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bridal-content::before {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,105,122,.25), transparent 70%);
+      top: -80px; right: -80px;
+    }
+
+    .bridal-content .label { color: var(--gold); }
+    .bridal-content .h-display { font-size: clamp(1.8rem, 2.8vw, 2.8rem); color: #fff; margin-bottom: 20px; }
+    .bridal-content .h-display em { color: var(--gold); }
+    .bridal-content p { font-size: .88rem; color: rgba(255,255,255,.65); line-height: 1.85; margin-bottom: 36px; }
+
+    .bridal-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .bridal-feat {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      padding: 16px 18px;
+    }
+    .bridal-feat-name {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .bridal-feat-desc {
+      font-size: .78rem;
+      color: rgba(255,255,255,.55);
+    }
+
+    /* ===========================
+       GALLERY
+    =========================== */
+    .section-gallery {
+      padding: 110px 48px;
+      background: var(--cream);
+    }
+    .gallery-head {
+      text-align: center;
+      max-width: 480px;
+      margin: 0 auto 56px;
+    }
+    .gallery-head .h-display { font-size: clamp(2rem, 3vw, 3rem); margin-bottom: 12px; }
+
+    .gallery-mosaic {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 240px 240px;
+      gap: 10px;
+    }
+
+    .g-item {
+      position: relative;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+    .g-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .7s ease, filter .4s;
+      filter: brightness(.88) saturate(.9);
+    }
+    .g-item:hover img { transform: scale(1.08); filter: brightness(1) saturate(1.05); }
+
+    .g-item--tall { grid-row: span 2; }
+    .g-item--wide { grid-column: span 2; }
+
+    .g-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(28,16,24,.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity .35s;
+    }
+    .g-item:hover .g-overlay { opacity: 1; }
+    .g-overlay span {
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.6);
+      padding: 9px 18px;
+    }
+
+    /* ===========================
+       ACADEMY
+    =========================== */
+    .section-academy {
+      padding: 110px 48px;
+      background: linear-gradient(135deg, #1c1018 0%, #2e1a22 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .academy-head {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 72px;
+    }
+    .academy-head .label { color: var(--gold); }
+    .academy-head .h-display { font-size: clamp(2rem, 3vw, 3rem); color: #fff; margin-bottom: 14px; }
+    .academy-head p { font-size: .88rem; color: rgba(255,255,255,.55); line-height: 1.8; }
+
+    .academy-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 52px;
+    }
+    .academy-tab {
+      padding: 9px 22px;
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,.15);
+      font-family: var(--ff-body);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.5);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .academy-tab:hover, .academy-tab.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201,164,106,.1);
+    }
+
+    .academy-content {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .academy-panel { display: none; }
+    .academy-panel.active { display: block; }
+
+    .academy-panel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .academy-module {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      padding: 28px 24px;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .academy-module:hover {
+      background: rgba(201,164,106,.08);
+      border-color: rgba(201,164,106,.3);
+    }
+
+    .academy-module-title {
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(201,164,106,.2);
+    }
+
+    .academy-module ul { display: flex; flex-direction: column; gap: 7px; }
+    .academy-module ul li {
+      font-size: .8rem;
+      color: rgba(255,255,255,.6);
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .academy-module ul li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 9px;
+      width: 5px; height: 1px;
+      background: var(--rose);
+    }
+
+    .academy-cta {
+      text-align: center;
+      margin-top: 56px;
+    }
+    .academy-cta p { font-size: .88rem; color: rgba(255,255,255,.5); margin-bottom: 20px; }
+
+    /* ===========================
+       TESTIMONIALS
+    =========================== */
+    .section-testimonials {
+      padding: 110px 48px;
+      background: var(--rose-pale);
+    }
+    .testimonials-head {
+      text-align: center;
+      max-width: 480px;
+      margin: 0 auto 56px;
+    }
+    .testimonials-head .h-display { font-size: clamp(2rem, 3vw, 3rem); margin-bottom: 12px; }
+
+    .testimonials-grid {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testi-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 36px 30px;
+      position: relative;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .testi-card:hover { box-shadow: 0 16px 48px rgba(200,105,122,.12); transform: translateY(-4px); }
+
+    .testi-stars { color: var(--gold); font-size: 1rem; letter-spacing: 2px; margin-bottom: 18px; }
+    .testi-text {
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--dark-mid);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .testi-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--rose);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--ff-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .testi-name { font-size: .82rem; font-weight: 600; color: var(--dark); }
+    .testi-role { font-size: .72rem; color: var(--muted); }
+
+    .testi-quote {
+      position: absolute;
+      top: 20px; right: 24px;
+      font-family: var(--ff-display);
+      font-size: 4rem;
+      color: var(--rose-pale);
+      line-height: 1;
+    }
+
+    /* ===========================
+       CONTACT
+    =========================== */
+    .section-contact {
+      padding: 110px 48px;
+      background: var(--cream-alt);
+    }
+
+    .contact-grid {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-left .h-display { font-size: clamp(2rem, 3vw, 3rem); margin-bottom: 16px; }
+    .contact-left p { font-size: .88rem; color: var(--muted); line-height: 1.85; margin-bottom: 40px; }
+
+    .contact-details { display: flex; flex-direction: column; gap: 22px; }
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .contact-icon {
+      width: 42px; height: 42px;
+      background: var(--rose-pale);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      color: var(--rose);
+    }
+    .contact-detail-text strong {
+      display: block;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .contact-detail-text span {
+      font-size: .85rem;
+      color: var(--muted);
+    }
+    .contact-detail-text a { color: var(--rose); transition: opacity .2s; }
+    .contact-detail-text a:hover { opacity: .7; }
+
+    /* Form */
+    .contact-form {
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 48px;
+    }
+    .form-title {
+      font-family: var(--ff-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .form-subtitle { font-size: .8rem; color: var(--muted); margin-bottom: 32px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
+    .form-group label {
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid #e8dde0;
+      background: #fdf8f5;
+      font-family: var(--ff-body);
+      font-size: .85rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color .2s;
+      border-radius: 0;
+      -webkit-appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--rose); background: #fff; }
+    .form-group textarea { resize: vertical; }
+    .form-submit { width: 100%; margin-top: 8px; justify-content: center; }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    .site-footer {
+      background: var(--dark);
+      padding: 64px 48px 32px;
+    }
+    .footer-grid {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .footer-brand-name {
+      font-family: var(--ff-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .footer-brand-name span { color: var(--rose); }
+    .footer-tagline {
+      font-size: .6rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+      margin-bottom: 20px;
+    }
+    .footer-desc { font-size: .82rem; color: rgba(255,255,255,.45); line-height: 1.75; }
+
+    .footer-col-title {
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a {
+      font-size: .82rem;
+      color: rgba(255,255,255,.45);
+      transition: color .2s;
+    }
+    .footer-col ul li a:hover { color: var(--rose); }
+
+    .footer-bottom {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-bottom p { font-size: .75rem; color: rgba(255,255,255,.3); }
+    .footer-bottom a { color: var(--rose); }
+
+    /* ===========================
+       WHATSAPP FLOAT
+    =========================== */
+    .wa-float {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      width: 56px; height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 28px rgba(37,211,102,.35);
+      z-index: 800;
+      transition: transform .3s, box-shadow .3s;
+      font-size: 1.6rem;
+    }
+    .wa-float:hover { transform: scale(1.12); box-shadow: 0 12px 40px rgba(37,211,102,.5); }
+
+    /* ===========================
+       MODAL
+    =========================== */
+    .modal-bg {
+      display: none;
+      position: fixed; inset: 0;
+      z-index: 1000;
+      background: rgba(28,16,24,.94);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-bg.open { display: flex; }
+    .modal-img-wrap {
+      position: relative;
+      max-width: 88vw;
+      max-height: 90vh;
+    }
+    .modal-img-wrap img {
+      max-width: 88vw;
+      max-height: 88vh;
+      object-fit: contain;
+      border: 1px solid rgba(200,105,122,.3);
+      animation: modalPop .35s ease;
+    }
+    @keyframes modalPop {
+      from { opacity: 0; transform: scale(.93); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .modal-close {
+      position: fixed;
+      top: 22px; right: 28px;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: rgba(255,255,255,.7);
+      cursor: pointer;
+      transition: color .2s;
+      z-index: 1001;
+    }
+    .modal-close:hover { color: var(--rose); }
+
+    /* ===========================
+       RESPONSIVE
+    =========================== */
+    @media (max-width: 1024px) {
+      #header { padding: 0 24px; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 130px 32px 60px; }
+      .hero-right { height: 420px; }
+      .hero-right::before { background: linear-gradient(to bottom, #1c1018 0%, transparent 30%); }
+      .hero-scroll { left: 32px; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-imgs { height: 380px; }
+      .about-img-main { width: 80%; }
+      .services-grid, .service-panel.active { grid-template-columns: 1fr 1fr; }
+      .academy-panel-grid { grid-template-columns: 1fr 1fr; }
+      .section-bridal { grid-template-columns: 1fr; }
+      .bridal-img-col { height: 380px; }
+      .bridal-content { padding: 60px 36px; }
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-mosaic { grid-template-columns: repeat(2,1fr); grid-template-rows: auto; }
+      .g-item--tall { grid-row: span 1; }
+      .g-item--wide { grid-column: span 1; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --section-pad: 72px 20px; }
+      .main-nav {
+        position: fixed;
+        top: 76px; left: 0; right: 0;
+        background: rgba(253,248,245,.98);
+        padding: 28px 24px;
+        transform: translateY(-110%);
+        opacity: 0;
+        transition: var(--transition);
+        pointer-events: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .main-nav.open { transform: none; opacity: 1; pointer-events: all; }
+      .main-nav ul { flex-direction: column; gap: 20px; }
+      .main-nav ul li a { font-size: .85rem; }
+      .nav-toggle { display: flex; }
+      .hero-left { padding: 120px 20px 56px; }
+      .hero-right { height: 300px; }
+      .about-grid, .contact-grid { gap: 36px; }
+      .section-about, .section-services, .section-gallery, .section-academy, .section-testimonials, .section-contact { padding: 72px 20px; }
+      .services-grid, .service-panel.active { grid-template-columns: 1fr; }
+      .academy-panel-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .gallery-mosaic { display: flex; flex-direction: column; }
+      .g-item { height: 240px; }
+      .hero-badges { gap: 24px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .contact-form { padding: 28px 20px; }
+      .bridal-features { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header id="header">
+    <div class="header-inner">
+      <a href="#" class="site-logo">
+        <span class="logo-main">Diva<span>'</span>s</span>
+        <span class="logo-sub">Beauty Salon & Academy</span>
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#bridal">Bridal</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#academy">Academy</a></li>
+          <li><a href="#contact" class="btn-nav">Book Now</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-tag">
+        <div class="hero-tag-line"></div>
+        <span>Premium Beauty Studio</span>
+      </div>
+      <h1 class="hero-title">Where Beauty<br>Meets <em>Artistry</em></h1>
+      <p class="hero-sub">Experience transformative beauty services crafted with passion, precision, and a touch of luxury — from everyday elegance to breathtaking bridal looks.</p>
+      <div class="hero-btns">
+        <a href="#services" class="btn btn-rose">Explore Services</a>
+        <a href="#academy" class="btn btn-ghost">Join Academy</a>
+      </div>
+      <div class="hero-badges">
+        <div>
+          <span class="hero-badge-num">8+</span>
+          <span class="hero-badge-label">Years of Excellence</span>
+        </div>
+        <div>
+          <span class="hero-badge-num">2000+</span>
+          <span class="hero-badge-label">Happy Clients</span>
+        </div>
+        <div>
+          <span class="hero-badge-num">500+</span>
+          <span class="hero-badge-label">Trained Students</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="902817dc177ed3819ed7b3715ae7cdb2.jpg" alt="Diva's Bridal Beauty">
+    </div>
+    <div class="hero-scroll"><div class="scroll-dot"></div><span>Scroll to Explore</span></div>
+  </section>
+
+  <!-- ===== MARQUEE ===== -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Hair Styling</span><span class="marquee-dot">✦</span>
+      <span>Bridal Makeup</span><span class="marquee-dot">✦</span>
+      <span>Skin Treatments</span><span class="marquee-dot">✦</span>
+      <span>Hair Coloring</span><span class="marquee-dot">✦</span>
+      <span>Threading & Waxing</span><span class="marquee-dot">✦</span>
+      <span>Beauty Academy</span><span class="marquee-dot">✦</span>
+      <span>Manicure & Pedicure</span><span class="marquee-dot">✦</span>
+      <span>Facials & Cleanup</span><span class="marquee-dot">✦</span>
+      <span>Hair Spa</span><span class="marquee-dot">✦</span>
+      <!-- repeat for seamless loop -->
+      <span>Hair Styling</span><span class="marquee-dot">✦</span>
+      <span>Bridal Makeup</span><span class="marquee-dot">✦</span>
+      <span>Skin Treatments</span><span class="marquee-dot">✦</span>
+      <span>Hair Coloring</span><span class="marquee-dot">✦</span>
+      <span>Threading & Waxing</span><span class="marquee-dot">✦</span>
+      <span>Beauty Academy</span><span class="marquee-dot">✦</span>
+      <span>Manicure & Pedicure</span><span class="marquee-dot">✦</span>
+      <span>Facials & Cleanup</span><span class="marquee-dot">✦</span>
+      <span>Hair Spa</span><span class="marquee-dot">✦</span>
+    </div>
+  </div>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="section-about">
+    <div class="about-grid reveal">
+      <div class="about-imgs">
+        <img class="about-img-main" src="hairdresser-taking-care-her-client.jpg" alt="Salon service">
+        <img class="about-img-accent" src="young-woman-relaxing-beauty-salon.jpg" alt="Relaxing treatment">
+        <div class="about-badge">
+          <strong>8+</strong>
+          <span>Yrs of Trust</span>
+        </div>
+      </div>
+      <div class="about-text">
+        <span class="label">Our Story</span>
+        <h2 class="h-display">More than a Salon —<br><em>A Sanctuary</em></h2>
+        <p>Diva's Beauty Salon & Academy is a premium beauty destination where every visit is an experience. From the moment you walk in, you're welcomed into a world of warmth, expertise, and transformation.</p>
+        <p>Founded with a passion for authentic beauty and professional excellence, we offer world-class services alongside a renowned academy that has trained hundreds of aspiring beauty professionals.</p>
+        <ul class="about-list">
+          <li>Certified & experienced beauty professionals</li>
+          <li>Premium international beauty brands</li>
+          <li>Hygienic, sanitized environment</li>
+          <li>Customized treatments for every skin & hair type</li>
+          <li>Academy certified by industry bodies</li>
+        </ul>
+        <a href="#contact" class="btn btn-rose">Book a Consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section id="services" class="section-services">
+    <div class="services-head reveal">
+      <span class="label">What We Do</span>
+      <h2 class="h-display">Our <em>Services</em></h2>
+      <p>From everyday grooming to special occasion transformations — every service at Diva's is performed with skill, care, and creativity.</p>
+    </div>
+
+    <div class="services-tabs">
+      <button class="tab-btn active" data-target="panel-beauty">Beauty</button>
+      <button class="tab-btn" data-target="panel-hair">Hair</button>
+      <button class="tab-btn" data-target="panel-skin">Skin & Body</button>
+    </div>
+
+    <div style="max-width:var(--max-w);margin:0 auto;">
+      <!-- Beauty Panel -->
+      <div class="service-panel active" id="panel-beauty">
+        <div class="service-card reveal">
+          <img class="service-card-img" src="pretty-young-latin-woman-getting-her-hair-removed-with-honey-wax-beauty-spa-lots-copy-space.jpg" alt="Waxing">
+          <div class="service-card-body">
+            <span class="service-card-icon">🌿</span>
+            <h3 class="service-card-title">Threading & Waxing</h3>
+            <p class="service-card-desc">Precise eyebrow threading, upper lip, chin, and full-body waxing using liposoluble & honey wax for silky-smooth results.</p>
+            <a href="#contact" class="service-card-link">Book Now</a>
+          </div>
+        </div>
+        <div class="service-card reveal" style="transition-delay:.1s">
+          <img class="service-card-img" src="young-beautiful-girl-lies-beautician-s-table-receives-procedures-light-facial-massage.jpg" alt="Facial">
+          <div class="service-card-body">
+            <span class="service-card-icon">✨</span>
+            <h3 class="service-card-title">Facials & Cleanup</h3>
+            <p class="service-card-desc">From basic cleanup to advanced Gold, Silver, Diamond, and Bridal Facials — tailored to your skin's unique needs.</p>
+            <a href="#contact" class="service-card-link">Book Now</a>
+          </div>
+        </div>
+        <div class="service-card reveal" style="transition-delay:.2s">
+          <img class="service-card-img" src="young-woman-relaxing-beauty-salon.jpg" alt="Spa Manicure">
+          <div class="service-card-body">
+            <span class="service-card-icon">💅</span>
+            <h3 class="service-card-title">Manicure & Pedicure</h3>
+            <p class="service-card-desc">Relaxing spa manicures and pedicures using premium products for beautifully groomed hands and feet.</p>
+            <a href="#contact" class="service-card-link">Book Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hair Panel -->
+      <div class="service-panel" id="panel-hair">
+        <div class="service-card reveal">
+          <img class="service-card-img" src="hairdresser-colored-hair-her-client-hair-salon.jpg" alt="Hair Color">
+          <div class="service-card-body">
+            <span class="service-card-icon">🎨</span>
+            <h3 class="service-card-title">Hair Colouring</h3>
+            <p class="service-card-desc">Global colour, highlights, balayage, ombre, root touch-up, and fashion colours — all with expert precision.</p>
+            <a href="#contact" class="service-card-link">Book Now</a>
+          </div>
+        </div>
+        <div class="service-card reveal" style="transition-delay:.1s">
+          <img class="service-card-img" src="hairdresser-taking-care-her-client.jpg" alt="Hair Styling">
+          <div class="service-card-body">
+            <span class="service-card-icon">💇</span>
+            <h3 class="service-card-title">Haircuts & Styling</h3>
+            <p class="service-card-desc">Bob cuts, layers, feather cuts, blunt cuts — styled beautifully for straight, wavy, or curly hair.</p>
+            <a href="#contact" class="service-card-link">Book Now</a>
+          </div>
+        </div>
+        <div class="service-card reveal" style="transition-delay:.2s">
+          <img class="service-card-img" src="woman-washing-head-hairsalon.jpg" alt="Hair Spa">
+          <div class="service-card-body">
+            <span class="service-card-icon">🌸</span>
+            <h3 class="service-card-title">Hair Spa & Treatments</h3>
+            <p class="service-card-desc">Advanced hair spa, keratin treatments, hair fall & dandruff treatments, and hot oil massage for healthy, lustrous hair.</p>
+            <a href="#contact" class="service-card-link">Book Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skin & Body Panel -->
+      <div class="service-panel" id="panel-skin">
+        <div class="service-card reveal">
+          <img class="service-card-img" src="young-beautiful-girl-lies-beautician-s-table-receives-procedures-light-facial-massage.jpg" alt="Facial Massage">
+          <div class="service-card-body">
+            <span class="service-card-icon">🧖</span>
+            <h3 class="service-card-title">Advanced Facials</h3>
+            <p class="service-card-desc">Oxy Blast, Skin Whitening, Gold & Silver facials, and International-level facial massage techniques.</p>
+            <a href="#contact" class="service-card-link">Book Now</a>
+          </div>
+        </div>
+        <div class="service-card reveal" style="transition-delay:.1s">
+          <img class="service-card-img" src="pretty-young-latin-woman-getting-her-hair-removed-with-honey-wax-beauty-spa-lots-copy-space.jpg" alt="Body Wax">
+          <div class="service-card-body">
+            <span class="service-card-icon">🕊️</span>
+            <h3 class="service-card-title">Body Treatments</h3>
+            <p class="service-card-desc">Body scrubbing, polishing, Swedish massage, Body SPA, mud pack, and chocolate mask for total body indulgence.</p>
+            <a href="#contact" class="service-card-link">Book Now</a>
+          </div>
+        </div>
+        <div class="service-card reveal" style="transition-delay:.2s">
+          <img class="service-card-img" src="young-woman-relaxing-beauty-salon.jpg" alt="Skin Care">
+          <div class="service-card-body">
+            <span class="service-card-icon">⚡</span>
+            <h3 class="service-card-title">Machine Treatments</h3>
+            <p class="service-card-desc">Galvanic, high frequency, ultrasonic, and ozone treatments for next-level skin rejuvenation and pimple care.</p>
+            <a href="#contact" class="service-card-link">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BRIDAL ===== -->
+  <section id="bridal" class="section-bridal">
+    <div class="bridal-img-col">
+      <img src="the-artist-studio-oeKiBmplBtU-unsplash.jpg" alt="Bridal Makeup">
+    </div>
+    <div class="bridal-content">
+      <span class="label">Signature Service</span>
+      <h2 class="h-display">Bridal Beauty,<br><em>Reimagined</em></h2>
+      <p>Your wedding day deserves nothing less than perfection. Our bridal packages are crafted with meticulous attention — from hair trials to the final touch of lipstick — ensuring you look and feel extraordinary.</p>
+      <div class="bridal-features">
+        <div class="bridal-feat">
+          <div class="bridal-feat-name">Bridal Makeup</div>
+          <div class="bridal-feat-desc">Airbrush & HD finish available</div>
+        </div>
+        <div class="bridal-feat">
+          <div class="bridal-feat-name">Bridal Hair</div>
+          <div class="bridal-feat-desc">Custom styling & extensions</div>
+        </div>
+        <div class="bridal-feat">
+          <div class="bridal-feat-name">Pre-Bridal</div>
+          <div class="bridal-feat-desc">Skin prep & glow packages</div>
+        </div>
+        <div class="bridal-feat">
+          <div class="bridal-feat-name">Mehndi Day</div>
+          <div class="bridal-feat-desc">Ethnic look specialists</div>
+        </div>
+      </div>
+      <a href="#contact" class="btn btn-ghost">Enquire About Bridal</a>
+    </div>
+  </section>
+
+  <!-- ===== GALLERY ===== -->
+  <section id="gallery" class="section-gallery">
+    <div class="gallery-head reveal">
+      <span class="label">Our Portfolio</span>
+      <h2 class="h-display">Our <em>Work</em></h2>
+      <p style="font-size:.88rem;color:var(--muted);">A glimpse into the transformations we create every day.</p>
+    </div>
+    <div class="gallery-mosaic">
+      <div class="g-item g-item--tall" data-src="902817dc177ed3819ed7b3715ae7cdb2.jpg">
+        <img src="902817dc177ed3819ed7b3715ae7cdb2.jpg" alt="Bridal Look 1">
+        <div class="g-overlay"><span>View</span></div>
+      </div>
+      <div class="g-item" data-src="hairdresser-colored-hair-her-client-hair-salon.jpg">
+        <img src="hairdresser-colored-hair-her-client-hair-salon.jpg" alt="Hair Colour">
+        <div class="g-overlay"><span>View</span></div>
+      </div>
+      <div class="g-item" data-src="young-beautiful-girl-lies-beautician-s-table-receives-procedures-light-facial-massage.jpg">
+        <img src="young-beautiful-girl-lies-beautician-s-table-receives-procedures-light-facial-massage.jpg" alt="Facial">
+        <div class="g-overlay"><span>View</span></div>
+      </div>
+      <div class="g-item g-item--wide" data-src="the-artist-studio-oeKiBmplBtU-unsplash.jpg">
+        <img src="the-artist-studio-oeKiBmplBtU-unsplash.jpg" alt="Bridal Look 2">
+        <div class="g-overlay"><span>View</span></div>
+      </div>
+      <div class="g-item" data-src="woman-washing-head-hairsalon.jpg">
+        <img src="woman-washing-head-hairsalon.jpg" alt="Hair Wash">
+        <div class="g-overlay"><span>View</span></div>
+      </div>
+      <div class="g-item" data-src="hairdresser-taking-care-her-client.jpg">
+        <img src="hairdresser-taking-care-her-client.jpg" alt="Hair Styling">
+        <div class="g-overlay"><span>View</span></div>
+      </div>
+      <div class="g-item" data-src="pretty-young-latin-woman-getting-her-hair-removed-with-honey-wax-beauty-spa-lots-copy-space.jpg">
+        <img src="pretty-young-latin-woman-getting-her-hair-removed-with-honey-wax-beauty-spa-lots-copy-space.jpg" alt="Waxing">
+        <div class="g-overlay"><span>View</span></div>
+      </div>
+      <div class="g-item" data-src="young-woman-relaxing-beauty-salon.jpg">
+        <img src="young-woman-relaxing-beauty-salon.jpg" alt="Relaxing">
+        <div class="g-overlay"><span>View</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ACADEMY ===== -->
+  <section id="academy" class="section-academy">
+    <div class="academy-head reveal">
+      <span class="label">Professional Training</span>
+      <h2 class="h-display">Diva's <em>Academy</em></h2>
+      <p>Master-level courses in Hair, Beauty, Makeup & Skin. Our structured curriculum takes you from beginner to certified professional — with hands-on training and industry mentorship.</p>
+    </div>
+
+    <div class="academy-tabs">
+      <button class="academy-tab active" data-panel="ac-beauty">Beauty</button>
+      <button class="academy-tab" data-panel="ac-hair">Hair</button>
+      <button class="academy-tab" data-panel="ac-color">Hair Colour</button>
+      <button class="academy-tab" data-panel="ac-body">Body & Machine</button>
+      <button class="academy-tab" data-panel="ac-chemical">Chemical</button>
+    </div>
+
+    <div class="academy-content">
+
+      <!-- Beauty Panel -->
+      <div class="academy-panel active" id="ac-beauty">
+        <div class="academy-panel-grid">
+          <div class="academy-module">
+            <div class="academy-module-title">Beauty — Level 1</div>
+            <ul>
+              <li>Threading (Eyebrow, Upper Lips, Chin & Side Locks)</li>
+              <li>Waxing & Liposoluble Wax</li>
+              <li>Body Wax, Pedicure & Manicure</li>
+              <li>Spa Pedicure / Spa Manicure</li>
+              <li>Face Bleach / D-Tan</li>
+              <li>Professional Cotton Cutting & Bed Prep</li>
+              <li>Cleanup & Basic Facial</li>
+            </ul>
+          </div>
+          <div class="academy-module">
+            <div class="academy-module-title">Advance Beauty — Level 2</div>
+            <ul>
+              <li>Skin Analysis & Skin Types</li>
+              <li>Advance Cleanup & Advance Facials</li>
+              <li>International Level Facial Massage Steps</li>
+              <li>Facial for Skin Tightening</li>
+              <li>Thermo Mask for Aging Clients</li>
+              <li>Facial for Shine & Glow</li>
+              <li>Oxy Blast, Gold, Silver, Diamond & Bridal Facial</li>
+            </ul>
+          </div>
+          <div class="academy-module">
+            <div class="academy-module-title">Why Choose Our Academy</div>
+            <ul>
+              <li>Industry-certified curriculum</li>
+              <li>Hands-on practical training</li>
+              <li>Expert mentors with salon experience</li>
+              <li>Flexible batch timings</li>
+              <li>Certificate upon completion</li>
+              <li>Placement assistance available</li>
+              <li>Small batch sizes for personalized attention</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hair Panel -->
+      <div class="academy-panel" id="ac-hair">
+        <div class="academy-panel-grid">
+          <div class="academy-module">
+            <div class="academy-module-title">Hair Theory — Level 1</div>
+            <ul>
+              <li>Hair Analysis & Hair Types</li>
+              <li>Hair Shapes</li>
+              <li>All Degree Knowledge</li>
+              <li>Cutting Section Knowledge</li>
+              <li>Scissor Knowledge</li>
+              <li>All Hair Brush Knowledge</li>
+            </ul>
+          </div>
+          <div class="academy-module">
+            <div class="academy-module-title">Hair Cuts</div>
+            <ul>
+              <li>U Cut, V Cut, Straight Cut</li>
+              <li>Bob Hair Cut & Side Fringes Cut</li>
+              <li>Advance Fringes & Square Fringes Cut</li>
+              <li>Layer Cut / Crown Layer Cut</li>
+              <li>3 Steps Hair Cut & Layer With Step</li>
+              <li>Blunt Cut for Baby & Advance Bob</li>
+              <li>Feather Layer Cut & Chopping Techniques</li>
+            </ul>
+          </div>
+          <div class="academy-module">
+            <div class="academy-module-title">Blow Dry & Treatments</div>
+            <ul>
+              <li>Blow Dry Techniques (In Turn, Outturn, Straight, Spiral)</li>
+              <li>Twisting & Texturizing Techniques</li>
+              <li>Hair Spa & Advance Hair Spa</li>
+              <li>Concentrate Hair Spa</li>
+              <li>Hair Fall & Dandruff Treatment</li>
+              <li>Hot Oil Massage</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colour Panel -->
+      <div class="academy-panel" id="ac-color">
+        <div class="academy-panel-grid">
+          <div class="academy-module">
+            <div class="academy-module-title">Hair Colour — Level 2</div>
+            <ul>
+              <li>Color Wheel Theory & Natural Base Theory</li>
+              <li>Color Mixing for Coverage / Root Touchup</li>
+              <li>Global Hair Color</li>
+              <li>Weaving & Slicing Highlight</li>
+              <li>Crazy Hair Highlight (Fashion / Funky)</li>
+              <li>Use of Pre-Lightening</li>
+            </ul>
+          </div>
+          <div class="academy-module">
+            <div class="academy-module-title">Advanced Colour Techniques</div>
+            <ul>
+              <li>Ombre & Balayage Highlight</li>
+              <li>Tong Different Techniques</li>
+              <li>Professional Shampoo & Conditioner Serum</li>
+              <li>Shampoo, Conditioning with Massage Steps</li>
+              <li>Introduction to Pre-Lightening Products</li>
+            </ul>
+          </div>
+          <div class="academy-module">
+            <div class="academy-module-title">Career Outcomes</div>
+            <ul>
+              <li>Salon Colourist</li>
+              <li>Fashion & Editorial Hair Stylist</li>
+              <li>Freelance Colour Specialist</li>
+              <li>Bridal Hair Expert</li>
+              <li>Brand Educator / Trainer</li>
+              <li>Start Your Own Salon</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Body & Machine Panel -->
+      <div class="academy-panel" id="ac-body">
+        <div class="academy-panel-grid">
+          <div class="academy-module">
+            <div class="academy-module-title">Body Treatments — Level 3</div>
+            <ul>
+              <li>Body Cleansing Technique</li>
+              <li>Body Scrubbing Technique</li>
+              <li>Body Polishing Technique</li>
+              <li>Swedish Body Massage</li>
+              <li>Body SPA Technique</li>
+              <li>Mud Pack for Body</li>
+              <li>Chocolate Mask for Body</li>
+            </ul>
+          </div>
+          <div class="academy-module">
+            <div class="academy-module-title">Machine Treatments</div>
+            <ul>
+              <li>Galvanic Machine</li>
+              <li>High Frequency</li>
+              <li>Ultrasonic Machine</li>
+              <li>Brushing Unit</li>
+              <li>Lonthophoresis Treatment</li>
+              <li>Pimple Treatment</li>
+              <li>Ozone (Steamer) & Sterilisation</li>
+            </ul>
+          </div>
+          <div class="academy-module">
+            <div class="academy-module-title">Certification & Skills</div>
+            <ul>
+              <li>Full practical demonstration</li>
+              <li>Client consultation training</li>
+              <li>Safety & hygiene protocols</li>
+              <li>Professional product knowledge</li>
+              <li>Assessment & certification</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chemical Panel -->
+      <div class="academy-panel" id="ac-chemical">
+        <div class="academy-panel-grid">
+          <div class="academy-module">
+            <div class="academy-module-title">Chemical Treatment — Level 3</div>
+            <ul>
+              <li>Permanent Straightening / Smoothing / Rebonding</li>
+              <li>Keratin / Cysteine Treatment</li>
+              <li>Nanoplastia Treatment</li>
+              <li>Botox Treatment</li>
+              <li>Product layering and neutralization</li>
+              <li>Post-care and client education</li>
+            </ul>
+          </div>
+          <div class="academy-module">
+            <div class="academy-module-title">Safety & Protocols</div>
+            <ul>
+              <li>Patch test procedures</li>
+              <li>Chemical sensitization awareness</li>
+              <li>Scalp health assessment</li>
+              <li>Before & after care guidance</li>
+              <li>Contraindications knowledge</li>
+            </ul>
+          </div>
+          <div class="academy-module">
+            <div class="academy-module-title">Who Should Enroll?</div>
+            <ul>
+              <li>Aspiring beauty professionals</li>
+              <li>Working stylists seeking upskilling</li>
+              <li>Entrepreneurs starting a salon</li>
+              <li>Home-based beauticians</li>
+              <li>Anyone passionate about hair science</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="academy-cta reveal">
+      <p>Ready to begin your professional beauty journey?</p>
+      <a href="#contact" class="btn btn-rose">Enquire About Courses</a>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="section-testimonials">
+    <div class="testimonials-head reveal">
+      <span class="label">Client Love</span>
+      <h2 class="h-display">What Our <em>Clients Say</em></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">My bridal look was absolutely breathtaking. The team understood exactly what I wanted — I felt like a queen on my wedding day!</p>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div>
+            <div class="testi-name">Sana Mirza</div>
+            <div class="testi-role">Bridal Client</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="transition-delay:.12s">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">I enrolled in the hair colouring course and it completely transformed my career. The trainers are knowledgeable and so patient!</p>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div>
+            <div class="testi-name">Riya Sharma</div>
+            <div class="testi-role">Academy Student</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="transition-delay:.24s">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">The best facial I've ever had. My skin glowed for weeks after! The salon is clean, calming and the staff is incredibly warm.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">P</div>
+          <div>
+            <div class="testi-name">Priya Nair</div>
+            <div class="testi-role">Regular Client</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact" class="section-contact">
+    <div class="contact-grid">
+      <div class="contact-left reveal">
+        <span class="label">Get In Touch</span>
+        <h2 class="h-display">Book Your<br><em>Appointment</em></h2>
+        <p>Whether you're looking to book a service, enquire about our academy, or plan your bridal package — we'd love to hear from you. Reach out and let's begin your beauty journey.</p>
+        <div class="contact-details">
+          <div class="contact-detail">
+            <div class="contact-icon">📍</div>
+            <div class="contact-detail-text">
+              <strong>Visit Us</strong>
+              <span>Diva's Beauty Salon & Academy<br>Mumbai, India</span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-icon">📞</div>
+            <div class="contact-detail-text">
+              <strong>Call Us</strong>
+              <span><a href="tel:+918080368358">+91 8080 368 358</a></span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-detail-text">
+              <strong>Email Us</strong>
+              <span><a href="mailto:hello@divasbeauty.in">hello@divasbeauty.in</a></span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-icon">🕐</div>
+            <div class="contact-detail-text">
+              <strong>Hours</strong>
+              <span>Mon – Sat: 10:00 AM – 8:00 PM<br>Sunday: 11:00 AM – 6:00 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form reveal" style="transition-delay:.15s">
+        <h3 class="form-title">Book an Appointment</h3>
+        <p class="form-subtitle">Fill in below and we'll get back to you within 24 hours.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" placeholder="Your first name">
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" placeholder="Your last name">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" placeholder="+91 00000 00000">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="your@email.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="service">Service / Course</label>
+          <select id="service">
+            <option value="">Select a service or course</option>
+            <optgroup label="Salon Services">
+              <option>Bridal Makeup & Hair</option>
+              <option>Hair Colouring</option>
+              <option>Haircut & Styling</option>
+              <option>Facial & Cleanup</option>
+              <option>Waxing & Threading</option>
+              <option>Manicure & Pedicure</option>
+              <option>Hair Spa & Treatments</option>
+              <option>Body SPA & Massage</option>
+            </optgroup>
+            <optgroup label="Academy Courses">
+              <option>Beauty Level 1 & 2</option>
+              <option>Hair Level 1</option>
+              <option>Hair Colour Level 2</option>
+              <option>Chemical Treatment Level 3</option>
+              <option>Body & Machine Treatments</option>
+              <option>Full Master Course</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="msg">Message</label>
+          <textarea id="msg" rows="3" placeholder="Tell us about your requirements..."></textarea>
+        </div>
+        <button type="button" class="btn btn-rose form-submit" onclick="this.textContent='✓ Sent! We\'ll be in touch soon.'">Send Enquiry</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">Diva<span>'</span>s</div>
+        <div class="footer-tagline">Beauty Salon & Academy</div>
+        <p class="footer-desc">Where artistry meets expertise. Transforming beauty, building careers — one client, one student at a time.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Services</div>
+        <ul>
+          <li><a href="#services">Bridal Packages</a></li>
+          <li><a href="#services">Hair Styling</a></li>
+          <li><a href="#services">Skin Treatments</a></li>
+          <li><a href="#services">Threading & Waxing</a></li>
+          <li><a href="#services">Manicure & Pedicure</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Academy</div>
+        <ul>
+          <li><a href="#academy">Beauty Courses</a></li>
+          <li><a href="#academy">Hair & Colour</a></li>
+          <li><a href="#academy">Chemical Treatments</a></li>
+          <li><a href="#academy">Body & Machine</a></li>
+          <li><a href="#academy">Master Course</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Quick Links</div>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="https://wa.me/+918080368358" target="_blank">WhatsApp Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Diva's Beauty Salon & Academy. All rights reserved.</p>
+      <p>Made with <span style="color:var(--rose)">♥</span> for beauty</p>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal-bg" id="modal">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <div class="modal-img-wrap">
+      <img id="modalImg" src="" alt="Gallery">
+    </div>
+  </div>
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="https://wa.me/+918080368358" class="wa-float" target="_blank" aria-label="Chat on WhatsApp">💬</a>
+
+  <script>
+    // Header scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 60));
+
+    // Mobile nav
+    const toggle = document.getElementById('navToggle');
+    const nav = document.getElementById('mainNav');
+    toggle.addEventListener('click', () => {
+      nav.classList.toggle('open');
+      toggle.classList.toggle('active');
+    });
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      nav.classList.remove('open');
+      toggle.classList.remove('active');
+    }));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+
+    // Service tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.service-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.target).classList.add('active');
+      });
+    });
+
+    // Academy tabs
+    document.querySelectorAll('.academy-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.academy-tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.academy-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.panel).classList.add('active');
+      });
+    });
+
+    // Gallery modal
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    document.querySelectorAll('.g-item').forEach(item => {
+      item.addEventListener('click', () => {
+        modalImg.src = item.dataset.src;
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => obs.observe(el));
+  </script>
+  <div>test<div>
+</body>
+</html>
