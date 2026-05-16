@@ -2014,11 +2014,26 @@
     );
     window.open(`https://wa.me/${WA_NUMBER}?text=${waText}`, '_blank');
 
-    // 3. Update button
+    // 3. Update button & reset form
     btn.textContent = emailOk
       ? '✓ Sent! We\'ll be in touch soon.'
       : '✓ WhatsApp opened — email may have failed.';
     btn.style.background = '#2a9d5c';
+
+    // Reset form fields
+    document.getElementById('fname').value = '';
+    document.getElementById('lname').value = '';
+    document.getElementById('phone').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('service').value = '';
+    document.getElementById('msg').value = '';
+
+    // Restore button after 4 seconds
+    setTimeout(() => {
+      btn.textContent = 'Send Enquiry';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 4000);
   });
 </script>
 </body>
