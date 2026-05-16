@@ -1762,7 +1762,7 @@
             <div class="contact-icon">✉️</div>
             <div class="contact-detail-text">
               <strong>Email Us</strong>
-              <span><a href="mailto:naznnkhan@gmail.com">naznnkhan@gmail.com</a></span>
+              <span><a href="mailto:divasbeautysalonandacademy@gmail.com">divasbeautysalonandacademy@gmail.com</a></span>
             </div>
           </div>
           <div class="contact-detail">
@@ -1885,72 +1885,141 @@
   <!-- WHATSAPP FLOAT -->
   <a href="https://wa.me/+917017372792" class="wa-float" target="_blank" aria-label="Chat on WhatsApp">💬</a>
 
-  <script>
-    // Header scroll
-    const header = document.getElementById('header');
-    window.addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 60));
+ <!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-    // Mobile nav
-    const toggle = document.getElementById('navToggle');
-    const nav = document.getElementById('mainNav');
-    toggle.addEventListener('click', () => {
-      nav.classList.toggle('open');
-      toggle.classList.toggle('active');
+<script>
+  // ── EmailJS config — replace these 3 values ──
+  const EJS_PUBLIC_KEY  = '5TGDAK_MEFmO7PFR1';
+  const EJS_SERVICE_ID  = 'service_npidoo2';
+  const EJS_TEMPLATE_ID = 'template_q2idxhq';
+  // ─────────────────────────────────────────────
+
+  // Your WhatsApp number (with country code, no + or spaces)
+  const WA_NUMBER = '917017372792';
+
+  emailjs.init(EJS_PUBLIC_KEY);
+
+  // Header scroll
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 60));
+
+  // Mobile nav
+  const toggle = document.getElementById('navToggle');
+  const nav = document.getElementById('mainNav');
+  toggle.addEventListener('click', () => {
+    nav.classList.toggle('open');
+    toggle.classList.toggle('active');
+  });
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    nav.classList.remove('open');
+    toggle.classList.remove('active');
+  }));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
     });
-    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      nav.classList.remove('open');
-      toggle.classList.remove('active');
-    }));
+  });
 
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const t = document.querySelector(a.getAttribute('href'));
-        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  // Service tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.service-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.target).classList.add('active');
+    });
+  });
+
+  // Academy tabs
+  document.querySelectorAll('.academy-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.academy-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.academy-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.panel).classList.add('active');
+    });
+  });
+
+  // Gallery modal
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modalImg');
+  document.querySelectorAll('.g-item').forEach(item => {
+    item.addEventListener('click', () => {
+      modalImg.src = item.dataset.src;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => obs.observe(el));
+
+  // ── Form submission ──
+  document.querySelector('.form-submit').addEventListener('click', async function () {
+    const btn = this;
+
+    const fname       = document.getElementById('fname').value.trim();
+    const lname       = document.getElementById('lname').value.trim();
+    const phone       = document.getElementById('phone').value.trim();
+    const email       = document.getElementById('email').value.trim();
+    const serviceType = document.getElementById('service').value;
+    const message     = document.getElementById('msg').value.trim();
+
+    // Basic validation
+    if (!fname || !phone) {
+      alert('Please fill in at least your name and phone number.');
+      return;
+    }
+
+    const fullName = `${fname} ${lname}`.trim();
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    // 1. Send email via EmailJS
+    let emailOk = false;
+    try {
+      await emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_ID, {
+        from_name:    fullName,
+        phone:        phone || 'Not provided',
+        from_email:   email || 'Not provided',
+        service_type: serviceType || 'Not specified',
+        message:      message || 'No message added.',
       });
-    });
+      emailOk = true;
+    } catch (err) {
+      console.error('EmailJS error:', err);
+    }
 
-    // Service tabs
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.service-panel').forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById(btn.dataset.target).classList.add('active');
-      });
-    });
+    // 2. Open WhatsApp with pre-filled message
+    const waText = encodeURIComponent(
+      `🌸 *New Enquiry – Diva's Beauty Salon*\n\n` +
+      `*Name:* ${fullName}\n` +
+      `*Phone:* ${phone || 'Not provided'}\n` +
+      `*Email:* ${email || 'Not provided'}\n` +
+      `*Service/Course:* ${serviceType || 'Not specified'}\n` +
+      `*Message:* ${message || 'No message added.'}`
+    );
+    window.open(`https://wa.me/${WA_NUMBER}?text=${waText}`, '_blank');
 
-    // Academy tabs
-    document.querySelectorAll('.academy-tab').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.academy-tab').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.academy-panel').forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById(btn.dataset.panel).classList.add('active');
-      });
-    });
-
-    // Gallery modal
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modalImg');
-    document.querySelectorAll('.g-item').forEach(item => {
-      item.addEventListener('click', () => {
-        modalImg.src = item.dataset.src;
-        modal.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      });
-    });
-    function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
-    document.getElementById('modalClose').addEventListener('click', closeModal);
-    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-    // Reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-    }, { threshold: 0.08 });
-    reveals.forEach(el => obs.observe(el));
-  </script>
+    // 3. Update button
+    btn.textContent = emailOk
+      ? '✓ Sent! We\'ll be in touch soon.'
+      : '✓ WhatsApp opened — email may have failed.';
+    btn.style.background = '#2a9d5c';
+  });
+</script>
 </body>
 </html>
